@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Header Layout</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+    html, body {
+        margin: 0;
+        padding: 0;
+        background: #FFFFFF;
+        overflow-x: hidden;
+        overflow-y: auto;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: geometricPrecision;
+    }
+
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+        display: none;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Archivo', sans-serif;
+        font-weight: 400;
+    }
+
+    .page {
+        width: 2560px;
+        height: 6255px;
+        margin: 0 auto;
+        background: #FFFFFF;
+        position: relative;
+    }
+
+    .header {
+        width: 2000px;
+        height: 80px;
+        background: #FFFFFF;
+        position: fixed;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    .logo {
+        width: 60px;
+        height: 60px;
+        margin-left: 10px;
+        object-fit: contain;
+        display: block;
+        flex: 0 0 auto;
+    }
+
+    .nav {
+        margin-left: auto;
+        margin-right: 20px;
+        display: flex;
+        gap: 40px;
+        align-items: center;
+    }
+
+    .nav-item {
+        font-family: 'Archivo', sans-serif;
+        font-size: 20px;
+        line-height: 163.1%;
+        letter-spacing: -0.02em;
+        color: #000000;
+        white-space: nowrap;
+        font-weight: 400;
+    }
+
+    .version-row {
+        width: 2000px;
+        height: 80px;
+        position: absolute;
+        top: 80px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding-right: 20px;
+        background: #FFFFFF;
+    }
+
+    .version-text {
+        font-family: 'Archivo', sans-serif;
+        font-size: 15px;
+        line-height: 163.1%;
+        letter-spacing: -0.02em;
+        white-space: nowrap;
+        font-weight: 400;
+    }
+
+    .muted { color: #BFBFBF; }
+    .dark { color: #000000; }
+
+    .hero {
+        width: 2000px;
+        height: 1000px;
+        position: absolute;
+        top: 160px;
+        left: 50%;
+        transform: translateX(-50%);
+        overflow: hidden;
+    }
+
+    .hero img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(0.9);
+        display: block;
+    }
+
+    .hero-title {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-family: 'Archivo', sans-serif;
+        font-size: 60px;
+        font-weight: 500;
+        line-height: 163.1%;
+        letter-spacing: -0.02em;
+        color: #FFFFFF;
+        white-space: nowrap;
+        text-align: center;
+    }
+
+    .description-box {
+        width: 646px;
+        height: 280px;
+        position: absolute;
+        top: 1160px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background: #FFFFFF;
+    }
+
+    .description-text {
+        width: 560px;
+        font-family: 'Archivo', sans-serif;
+        font-size: 15px;
+        line-height: 163.1%;
+        letter-spacing: -0.02em;
+        color: #000000;
+        font-weight: 400;
+        text-align: center;
+        margin: 0;
+    }
+
+    .carousel-section {
+        position: absolute;
+        top: 1440px; /* 280 px ниже титульной фотографии */
+        left: 50%;
+        transform: translateX(-50%);
+        width: 2000px;
+    }
+
+    .carousel-viewport {
+        width: 2000px;
+        height: 1125px;
+        overflow: hidden; /* соседние фото скрыты */
+        position: relative;
+        cursor: grab;
+        user-select: none;
+        touch-action: pan-y;
+    }
+
+    .carousel-viewport.dragging {
+        cursor: grabbing;
+    }
+
+    .carousel-track {
+        display: flex;
+        gap: 20px;
+        height: 1125px;
+        will-change: transform;
+        transform: translateX(0px);
+    }
+
+    .slide {
+        width: 2000px;
+        height: 1125px;
+        flex: 0 0 2000px;
+        user-select: none;
+        -webkit-user-drag: none;
+        pointer-events: none;
+    }
+
+    .slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        user-select: none;
+        -webkit-user-drag: none;
+        pointer-events: none;
+    }
+</style>
+</head>
+
+<body>
+<div class="page">
+
+    <div class="header">
+        <img src="logo.png" class="logo" alt="Logo">
+        <div class="nav">
+            <div class="nav-item">КАТАЛОГ</div>
+            <div class="nav-item">360 INTERACTIVE</div>
+            <div class="nav-item">КОРЕКТИВИ</div>
+        </div>
+    </div>
+
+    <div class="version-row">
+        <div class="version-text">
+            <span class="muted">Версія проєкту </span>
+            <span class="dark">1.4 </span>
+            <span class="muted">/ </span>
+            <span class="dark">09.10.2025</span>
+        </div>
+    </div>
+
+    <div class="hero">
+        <img src="Titled.jpg" alt="Titled image">
+        <div class="hero-title">COTTAGE LISOVA</div>
+    </div>
+
+    <div class="description-box">
+        <p class="description-text">Сучасна резиденція, інтегрована в сосновий ліс, з підкреслено горизонтальною архітектурою. Візуалізація акцентує взаємодію будівлі з природою через скло, світло та натуральні матеріали.</p>
+    </div>
+
+    <section class="carousel-section">
+        <div class="carousel-viewport" id="carouselViewport">
+            <div class="carousel-track" id="carouselTrack">
+                <div class="slide"><img src="A5.jpg" alt="A5"></div>
+                <div class="slide"><img src="A1.jpg" alt="A1"></div>
+                <div class="slide"><img src="A2.jpg" alt="A2"></div>
+                <div class="slide"><img src="A3.jpg" alt="A3"></div>
+                <div class="slide"><img src="A4.jpg" alt="A4"></div>
+                <div class="slide"><img src="A5.jpg" alt="A5"></div>
+                <div class="slide"><img src="A1.jpg" alt="A1 clone"></div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<script>
+(function () {
+    const viewport = document.getElementById('carouselViewport');
+    const track = document.getElementById('carouselTrack');
+
+    const realSlides = 5;
+    const slideWidth = 2000;
+    const gap = 20;
+    const step = slideWidth + gap;
+
+    let index = 1; // начинаем с A1, так как 0 — клон A5
+    let currentX = -index * step;
+    let startX = 0;
+    let startTranslate = currentX;
+    let isDragging = false;
+    let hasMoved = false;
+
+    function setTransition(enabled) {
+        track.style.transition = enabled ? 'transform 420ms cubic-bezier(0.22, 0.61, 0.36, 1)' : 'none';
+    }
+
+    function setTranslate(x) {
+        currentX = x;
+        track.style.transform = `translateX(${x}px)`;
+    }
+
+    function snapToIndex(targetIndex, animate = true) {
+        index = targetIndex;
+        setTransition(animate);
+        setTranslate(-index * step);
+    }
+
+    function getClientX(event) {
+        if (event.touches && event.touches.length) return event.touches[0].clientX;
+        if (event.changedTouches && event.changedTouches.length) return event.changedTouches[0].clientX;
+        return event.clientX;
+    }
+
+    function onStart(event) {
+        isDragging = true;
+        hasMoved = false;
+        viewport.classList.add('dragging');
+        startX = getClientX(event);
+        startTranslate = currentX;
+        setTransition(false);
+    }
+
+    function onMove(event) {
+        if (!isDragging) return;
+        const dx = getClientX(event) - startX;
+        if (Math.abs(dx) > 2) hasMoved = true;
+        setTranslate(startTranslate + dx);
+    }
+
+    function onEnd(event) {
+        if (!isDragging) return;
+        isDragging = false;
+        viewport.classList.remove('dragging');
+
+        const dx = getClientX(event) - startX;
+        const threshold = step * 0.16;
+
+        if (dx <= -threshold) {
+            snapToIndex(index + 1, true);
+        } else if (dx >= threshold) {
+            snapToIndex(index - 1, true);
+        } else {
+            snapToIndex(index, true);
+        }
+    }
+
+    track.addEventListener('transitionend', function () {
+        if (index === 0) {
+            snapToIndex(realSlides, false); // с клона A5 на реальный A5
+        } else if (index === realSlides + 1) {
+            snapToIndex(1, false); // с клона A1 на реальный A1
+        }
+    });
+
+    viewport.addEventListener('mousedown', onStart);
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onEnd);
+    viewport.addEventListener('mouseleave', function (e) {
+        if (isDragging) onEnd(e);
+    });
+
+    viewport.addEventListener('touchstart', onStart, { passive: true });
+    viewport.addEventListener('touchmove', onMove, { passive: true });
+    viewport.addEventListener('touchend', onEnd, { passive: true });
+    viewport.addEventListener('dragstart', function (e) { e.preventDefault(); });
+
+    snapToIndex(1, false);
+})();
+</script>
+</body>
+</html>

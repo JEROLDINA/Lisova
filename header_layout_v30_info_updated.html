@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Header Layout</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+    html {
+        scroll-behavior: smooth;
+    }
+
+    html, body {
+        margin: 0;
+        padding: 0;
+        background: #FFFFFF;
+        overflow-x: hidden;
+        overflow-y: auto;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: geometricPrecision;
+    }
+
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+        display: none;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Archivo', sans-serif;
+        font-weight: 400;
+    }
+
+    .page {
+        width: 2560px;
+        height: 6255px;
+        margin: 0 auto;
+        background: #FFFFFF;
+        position: relative;
+    }
+
+    .header {
+        width: 2000px;
+        height: 80px;
+        background: #FFFFFF;
+        position: fixed;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    .logo {
+        width: 60px;
+        height: 60px;
+        margin-left: 10px;
+        object-fit: cover;
+        display: block;
+        flex: 0 0 auto;
+    }
+
+    .nav {
+        margin-left: auto;
+        margin-right: 20px;
+        display: flex;
+        gap: 40px;
+        align-items: center;
+    }
+
+    .nav-item {
+        font-family: 'Archivo', sans-serif;
+        font-size: 20px;
+        line-height: 163.1%;
+        letter-spacing: -0.02em;
+        color: #000000;
+        white-space: nowrap;
+        font-weight: 400;
+    }
+
+    .nav-button {
+        background: transparent;
+        border: 0;
+        padding: 0;
+        cursor: pointer;
+    }
+
+    .version-row {
+        width: 2000px;
+        height: 80px;
+        position: absolute;
+        top: 80px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding-right: 20px;
+        background: #FFFFFF;
+    }
+
+    .version-text {
+        font-family: 'Archivo', sans-serif;
+        font-size: 15px;
+        line-height: 163.1%;
+        letter-spacing: -0.02em;
+        white-space: nowrap;
+        font-weight: 400;
+    }
+
+    .muted { color: #BFBFBF; }
+    .dark { color: #000000; }
+
+    .hero {
+        width: 2000px;
+        height: 1000px;
+        position: absolute;
+        top: 160px;
+        left: 50%;
+        transform: translateX(-50%);
+        overflow: hidden;
+    }
+
+    .hero img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(0.9);
+        display: block;
+    }
+
+    .hero-title {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-family: 'Archivo', sans-serif;
+        font-size: 60px;
+        font-weight: 500;
+        line-height: 163.1%;
+        letter-spacing: -0.02em;
+        color: #FFFFFF;
+        white-space: nowrap;
+        text-align: center;
+    }
+
+    .description-box {
+        width: 646px;
+        height: 280px;
+        position: absolute;
+        top: 1160px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background: #FFFFFF;
+    }
+
+    .description-text {
+        width: 560px;
+        font-family: 'Archivo', sans-serif;
+        font-size: 15px;
+        line-height: 163.1%;
+        letter-spacing: -0.02em;
+        color: #000000;
+        font-weight: 400;
+        text-align: center;
+        margin: 0;
+    }
+
+    .carousel-section {
+        position: absolute;
+        top: 1440px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 2000px;
+    }
+
+    .carousel-viewport {
+        width: 2000px;
+        height: 1125px;
+        overflow: hidden;
+        position: relative;
+        cursor: grab;
+        user-select: none;
+        touch-action: auto;
+    }
+
+    .carousel-viewport.dragging {
+        cursor: grabbing;
+    }
+
+    .carousel-track {
+        display: flex;
+        gap: 20px;
+        height: 1125px;
+        will-change: transform;
+        transform: translateX(0px);
+    }
+
+    .slide {
+        width: 2000px;
+        height: 1125px;
+        flex: 0 0 2000px;
+        user-select: none;
+        -webkit-user-drag: none;
+        pointer-events: none;
+    }
+
+    .slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        user-select: none;
+        -webkit-user-drag: none;
+        pointer-events: none;
+    }
+
+    .carousel-dots {
+        width: 2000px;
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 20px;
+    }
+
+    .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #BFBFBF;
+    }
+
+    .dot.active {
+        background: #000000;
+    }
+
+    .fullscreen-open {
+        position: absolute;
+        right: 12px;
+        bottom: 12px;
+        width: 56px;
+        height: 56px;
+        padding: 0;
+        border: 0;
+        outline: none;
+        box-shadow: none;
+        background: transparent;
+        appearance: none;
+        -webkit-appearance: none;
+        border-radius: 0;
+        cursor: pointer;
+        z-index: 50;
+    }
+
+    .fullscreen-open:focus,
+    .fullscreen-open:focus-visible,
+    .fullscreen-open:active {
+        outline: none;
+        box-shadow: none;
+        border: 0;
+    }
+
+    .fullscreen-open img,
+    .fullscreen-close img {
+        width: 56px;
+        height: 56px;
+        display: block;
+        border: 0;
+        outline: none;
+        box-shadow: none;
+        background: transparent;
+        user-select: none;
+        -webkit-user-drag: none;
+        pointer-events: none;
+    }
+
+    .fullscreen-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.98);
+        display: none;
+        z-index: 10000;
+    }
+
+    .fullscreen-overlay.active {
+        display: block;
+    }
+
+    .fullscreen-image-wrap {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .fullscreen-image {
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+        display: block;
+        user-select: none;
+        -webkit-user-drag: none;
+    }
+
+    .fullscreen-close {
+        position: absolute;
+        right: 12px;
+        bottom: 12px;
+        width: 56px;
+        height: 56px;
+        padding: 0;
+        border: 0;
+        outline: none;
+        box-shadow: none;
+        background: transparent;
+        appearance: none;
+        -webkit-appearance: none;
+        border-radius: 0;
+        cursor: pointer;
+        z-index: 10001;
+    }
+
+    .fullscreen-close:focus,
+    .fullscreen-close:focus-visible,
+    .fullscreen-close:active {
+        outline: none;
+        box-shadow: none;
+        border: 0;
+    }
+
+    .fullscreen-open,
+    .fullscreen-close,
+    .nav-button {
+        transition: transform 0.12s ease, opacity 0.12s ease;
+    }
+
+    .fullscreen-open:active,
+    .fullscreen-close:active {
+        transform: scale(0.92);
+    }
+
+    .nav-button:active {
+        transform: scale(0.96);
+    }
+
+
+    .tree-toggle {
+        position: absolute;
+        right: 70px;
+        bottom: 20px;
+        width: 196px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        color: #FFFFFF;
+        font-family: 'Archivo', sans-serif;
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 163.1%;
+        letter-spacing: -0.02em;
+        cursor: pointer;
+        z-index: 49;
+        outline: none;
+        box-shadow: none;
+        transition: transform 0.12s ease, opacity 0.12s ease;
+    }
+
+    
+    .tree-toggle:active {
+        transform: scale(0.96);
+    }
+
+    .tree-toggle:focus,
+    .tree-toggle:focus-visible {
+        outline: none;
+        box-shadow: none;
+    }
+
+
+    .tree-toggle,
+    .fullscreen-tree-toggle {
+        opacity: 0;
+        transform: translateY(8px);
+        pointer-events: none;
+    }
+
+    .tree-toggle.visible,
+    .fullscreen-tree-toggle.visible {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+
+    .tree-toggle,
+    .fullscreen-tree-toggle {
+        transition: opacity 0.24s ease, transform 0.24s ease;
+    }
+
+    .fullscreen-tree-toggle {
+        position: absolute;
+        right: 70px;
+        bottom: 20px;
+        width: 196px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        color: #FFFFFF;
+        font-family: 'Archivo', sans-serif;
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 163.1%;
+        letter-spacing: -0.02em;
+        cursor: pointer;
+        z-index: 10002;
+        outline: none;
+        box-shadow: none;
+    }
+
+    .fullscreen-tree-toggle:active {
+        transform: scale(0.96);
+    }
+
+    .fullscreen-tree-toggle:focus,
+    .fullscreen-tree-toggle:focus-visible {
+        outline: none;
+        box-shadow: none;
+    }
+
+
+    .tree-toggle,
+    .fullscreen-tree-toggle {
+        overflow: hidden;
+    }
+
+    .tree-toggle-inner,
+    .fullscreen-tree-toggle-inner {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.12s ease;
+    }
+
+    .tree-toggle:active .tree-toggle-inner,
+    .fullscreen-tree-toggle:active .fullscreen-tree-toggle-inner {
+        transform: scale(0.96);
+    }
+
+
+    .tree-toggle-inner,
+    .fullscreen-tree-toggle-inner {
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+        border: 3px solid #FFFFFF;
+        border-radius: 6px;
+        background: transparent;
+        color: #FFFFFF;
+    }
+
+
+    .info-button {
+        position: absolute;
+        left: 20px;
+        top: 20px;
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        border: 0;
+        border-radius: 6px;
+        background: rgba(0, 0, 0, 0.7);
+        cursor: pointer;
+        z-index: 55;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        outline: none;
+        box-shadow: none;
+        transition: transform 0.12s ease, opacity 0.12s ease;
+    }
+
+    .info-button:active {
+        transform: scale(0.94);
+    }
+
+    .info-button img {
+        width: 24px;
+        height: 24px;
+        display: block;
+        user-select: none;
+        -webkit-user-drag: none;
+        pointer-events: none;
+    }
+
+    .info-popup {
+        position: absolute;
+        left: 20px;
+        top: 70px;
+        width: 400px;
+        height: 300px;
+        padding: 20px 10px 0 10px;
+        border: 0;
+        border-radius: 6px;
+        background: rgba(0, 0, 0, 0.7);
+        color: #FFFFFF;
+        z-index: 54;
+        box-sizing: border-box;
+        opacity: 0;
+        transform: translateY(-6px);
+        pointer-events: none;
+        transition: opacity 0.18s ease, transform 0.18s ease;
+    }
+
+    .info-popup.visible {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+
+    .info-popup p {
+        margin: 0;
+        font-family: 'Archivo', sans-serif;
+        font-size: 15px;
+        font-weight: 400;
+        line-height: 163.1%;
+        letter-spacing: -0.02em;
+        color: #FFFFFF;
+    }
+
+</style>
+</head>
+
+<body>
+<div class="page">
+
+    <div class="header">
+        <img src="logo.png" class="logo" alt="Logo">
+        <div class="nav">
+            <button class="nav-item nav-button" id="catalogBtn" type="button">КАТАЛОГ</button>
+            <div class="nav-item">360 INTERACTIVE</div>
+            <div class="nav-item">КОРЕКТИВИ</div>
+        </div>
+    </div>
+
+    <div class="version-row">
+        <div class="version-text">
+            <span class="muted">Версія проєкту </span>
+            <span class="dark">1.4 </span>
+            <span class="muted">/ </span>
+            <span class="dark">09.10.2025</span>
+        </div>
+    </div>
+
+    <div class="hero">
+        <img src="Titled.jpg" alt="Titled image">
+        <div class="hero-title">COTTAGE LISOVA</div>
+    </div>
+
+    <div class="description-box">
+        <p class="description-text">Сучасна резиденція, інтегрована в сосновий ліс, з підкреслено горизонтальною архітектурою. Візуалізація акцентує взаємодію будівлі з природою через скло, світло та натуральні матеріали.</p>
+    </div>
+
+    <section class="carousel-section" id="catalogSection">
+        <div class="carousel-viewport" id="carouselViewport">
+            <div class="carousel-track" id="carouselTrack">
+                <div class="slide"><img src="A6.jpg" alt="A6 clone"></div>
+                <div class="slide"><img src="A1.jpg" alt="A1"></div>
+                <div class="slide"><img src="A2.jpg" alt="A2"></div>
+                <div class="slide"><img src="A3.jpg" alt="A3"></div>
+                <div class="slide"><img src="A4.jpg" alt="A4"></div>
+                <div class="slide"><img src="A5.jpg" alt="A5"></div>
+                <div class="slide"><img src="A6.jpg" alt="A6"></div>
+                <div class="slide"><img src="A1.jpg" alt="A1 clone"></div>
+            </div>
+
+            
+            <button class="info-button" id="infoButton" type="button" aria-label="Info">
+                <img src="Icon_Info.png" alt="Info">
+            </button>
+
+            <div class="info-popup" id="infoPopup">
+                <p>Натисніть клавішу F11, щоб відкрити сайт у повноекранному режимі браузера.<br><br>Щоб змінювати фотографії, утримуйте кнопку миші та переміщуйте курсор у потрібному напрямку або використовуйте стрілки на клавіатурі.<br><br>У режимі перегляду фото на весь екран перемикання здійснюється лише за допомогою стрілок на клавіатурі.</p>
+            </div>
+
+            <button class="tree-toggle" id="treeToggle" type="button"><span class="tree-toggle-inner">прибрати дерева</span></button>
+
+            <button class="fullscreen-open" id="fullscreenOpen" type="button" aria-label="Open image fullscreen">
+                <img src="Icon_Plus.png" alt="Open">
+            </button>
+        </div>
+
+        <div class="carousel-dots" id="carouselDots">
+            <div class="dot active"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </section>
+</div>
+
+<div class="fullscreen-overlay" id="fullscreenOverlay">
+    <div class="fullscreen-image-wrap" id="fullscreenBackdrop">
+        <img class="fullscreen-image" id="fullscreenImage" src="A1.jpg" alt="Fullscreen image">
+    </div>
+
+    <button class="fullscreen-tree-toggle" id="fullscreenTreeToggle" type="button"><span class="fullscreen-tree-toggle-inner">прибрати дерева</span></button>
+
+    <button class="fullscreen-close" id="fullscreenClose" type="button" aria-label="Close fullscreen">
+        <img src="Icon_Minus.png" alt="Close">
+    </button>
+</div>
+
+<script>
+(function () {
+    const viewport = document.getElementById('carouselViewport');
+    const track = document.getElementById('carouselTrack');
+    const dots = document.querySelectorAll('.dot');
+    const fullscreenOpen = document.getElementById('fullscreenOpen');
+    const fullscreenOverlay = document.getElementById('fullscreenOverlay');
+    const fullscreenImage = document.getElementById('fullscreenImage');
+    const fullscreenClose = document.getElementById('fullscreenClose');
+    const catalogBtn = document.getElementById('catalogBtn');
+    const catalogSection = document.getElementById('catalogSection');
+    const treeToggle = document.getElementById('treeToggle');
+    const fullscreenTreeToggle = document.getElementById('fullscreenTreeToggle');
+    const infoButton = document.getElementById('infoButton');
+    const infoPopup = document.getElementById('infoPopup');
+
+    const realSlides = 6;
+    const slideWidth = 2000;
+    const gap = 20;
+    const step = slideWidth + gap;
+
+    const treeStates = [false, false, false, false, false, false];
+    const slideImgElements = track.querySelectorAll('.slide img');
+    const slideKeys = ['A6', 'A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A1'];
+
+    let index = 1;
+    let currentX = -index * step;
+    let dragStartX = 0;
+    let dragStartTranslate = currentX;
+    let isPointerDown = false;
+    let isDragging = false;
+    let isAnimating = false;
+
+    function getRealIndex() {
+        let realIndex = index;
+        if (realIndex === 0) realIndex = realSlides;
+        if (realIndex === realSlides + 1) realIndex = 1;
+        return realIndex;
+    }
+
+    function getImageSrcByRealIndex(realIndex) {
+        if (realIndex >= 1 && realIndex <= 3 && treeStates[realIndex - 1]) {
+            return `A${realIndex}bold.jpg`;
+        }
+        return `A${realIndex}.jpg`;
+    }
+
+    function getImageSrcByKey(key) {
+        const num = Number(key.replace('A', ''));
+        if (num >= 1 && num <= 3 && treeStates[num - 1]) {
+            return `${key}bold.jpg`;
+        }
+        return `${key}.jpg`;
+    }
+
+    function updateSlideImages() {
+        slideImgElements.forEach((img, i) => {
+            img.src = getImageSrcByKey(slideKeys[i]);
+        });
+        updateFullscreenImage();
+    }
+
+    function updateDots() {
+        const realIndex = getRealIndex();
+        dots.forEach(d => d.classList.remove('active'));
+        dots[realIndex - 1].classList.add('active');
+    }
+
+    function updateFullscreenImage() {
+        const realIndex = getRealIndex();
+        fullscreenImage.src = getImageSrcByRealIndex(realIndex);
+    }
+
+    function setButtonVisibility(button, show, label) {
+        const inner = button.querySelector('span');
+        if (label && inner) inner.textContent = label;
+        if (show) {
+            button.classList.add('visible');
+        } else {
+            button.classList.remove('visible');
+        }
+    }
+
+    function updateTreeButtons() {
+        const realIndex = getRealIndex();
+        if (realIndex >= 1 && realIndex <= 3) {
+            const label = treeStates[realIndex - 1] ? 'повернути дерева' : 'прибрати дерева';
+            setButtonVisibility(treeToggle, true, label);
+            setButtonVisibility(fullscreenTreeToggle, true, label);
+        } else {
+            setButtonVisibility(treeToggle, false);
+            setButtonVisibility(fullscreenTreeToggle, false);
+        }
+    }
+
+    function centerCatalogInView() {
+        const sectionRect = catalogSection.getBoundingClientRect();
+        const absoluteTop = window.pageYOffset + sectionRect.top;
+        const target = absoluteTop - (window.innerHeight - sectionRect.height) / 2;
+        window.scrollTo({ top: Math.max(0, target), behavior: 'smooth' });
+    }
+
+    function openFullscreen() {
+        updateFullscreenImage();
+        updateTreeButtons();
+        fullscreenOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden';
+    }
+
+    function closeFullscreen() {
+        fullscreenOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+        document.documentElement.style.overflow = '';
+    }
+
+    function setTransition(enabled) {
+        track.style.transition = enabled
+            ? 'transform 420ms cubic-bezier(0.22, 0.61, 0.36, 1)'
+            : 'none';
+    }
+
+    function setTranslate(x) {
+        currentX = x;
+        track.style.transform = `translateX(${x}px)`;
+    }
+
+    function refreshUI() {
+        updateDots();
+        updateSlideImages();
+        updateTreeButtons();
+    }
+
+    function snapToIndex(targetIndex, animate = true) {
+        index = targetIndex;
+        isAnimating = animate;
+        setTransition(animate);
+        setTranslate(-index * step);
+        refreshUI();
+    }
+
+    function goNext() {
+        if (isAnimating) return;
+        snapToIndex(index + 1, true);
+    }
+
+    function goPrev() {
+        if (isAnimating) return;
+        snapToIndex(index - 1, true);
+    }
+
+    track.addEventListener('transitionend', function () {
+        isAnimating = false;
+        if (index === 0) {
+            snapToIndex(realSlides, false);
+        } else if (index === realSlides + 1) {
+            snapToIndex(1, false);
+        }
+    });
+
+    viewport.addEventListener('pointerdown', function (e) {
+        if (e.pointerType !== 'mouse') return;
+        if (e.button !== 0) return;
+        if (isAnimating) return;
+        if (e.target.closest('#fullscreenOpen') || e.target.closest('#treeToggle') || e.target.closest('#infoButton') || e.target.closest('#infoPopup')) return;
+
+        isPointerDown = true;
+        isDragging = false;
+        dragStartX = e.clientX;
+        dragStartTranslate = currentX;
+
+        viewport.classList.add('dragging');
+        viewport.setPointerCapture(e.pointerId);
+        setTransition(false);
+    });
+
+    viewport.addEventListener('pointermove', function (e) {
+        if (!isPointerDown) return;
+        const dx = e.clientX - dragStartX;
+        if (!isDragging && Math.abs(dx) < 6) return;
+        isDragging = true;
+        setTranslate(dragStartTranslate + dx);
+    });
+
+    function finishDrag(e) {
+        if (!isPointerDown) return;
+        const dx = e.clientX - dragStartX;
+        isPointerDown = false;
+        viewport.classList.remove('dragging');
+
+        if (!isDragging) {
+            setTransition(true);
+            setTranslate(-index * step);
+            refreshUI();
+            return;
+        }
+
+        const threshold = step * 0.16;
+        if (dx <= -threshold) {
+            snapToIndex(index + 1, true);
+        } else if (dx >= threshold) {
+            snapToIndex(index - 1, true);
+        } else {
+            snapToIndex(index, true);
+        }
+
+        isDragging = false;
+    }
+
+    viewport.addEventListener('pointerup', finishDrag);
+    viewport.addEventListener('pointercancel', finishDrag);
+
+    let touchStartX = 0;
+    let touchStartTranslate = currentX;
+    let touchDragging = false;
+
+    viewport.addEventListener('touchstart', function (e) {
+        if (isAnimating) return;
+        if (e.target.closest('#fullscreenOpen') || e.target.closest('#treeToggle') || e.target.closest('#infoButton') || e.target.closest('#infoPopup')) return;
+        touchDragging = true;
+        touchStartX = e.touches[0].clientX;
+        touchStartTranslate = currentX;
+        setTransition(false);
+    }, { passive: true });
+
+    viewport.addEventListener('touchmove', function (e) {
+        if (!touchDragging) return;
+        const dx = e.touches[0].clientX - touchStartX;
+        setTranslate(touchStartTranslate + dx);
+    }, { passive: true });
+
+    viewport.addEventListener('touchend', function (e) {
+        if (!touchDragging) return;
+        touchDragging = false;
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        const threshold = step * 0.16;
+
+        if (dx <= -threshold) {
+            snapToIndex(index + 1, true);
+        } else if (dx >= threshold) {
+            snapToIndex(index - 1, true);
+        } else {
+            snapToIndex(index, true);
+        }
+    }, { passive: true });
+
+    viewport.addEventListener('dragstart', function (e) {
+        e.preventDefault();
+    });
+
+    window.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            goPrev();
+        } else if (e.key === 'ArrowRight') {
+            e.preventDefault();
+            goNext();
+        } else if (e.key === 'Escape' && fullscreenOverlay.classList.contains('active')) {
+            e.preventDefault();
+            closeFullscreen();
+        }
+    });
+
+    fullscreenOpen.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        openFullscreen();
+    });
+
+    fullscreenClose.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        closeFullscreen();
+    });
+
+    catalogBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        centerCatalogInView();
+    });
+
+    function toggleTrees(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const realIndex = getRealIndex();
+        if (realIndex < 1 || realIndex > 3) return;
+        treeStates[realIndex - 1] = !treeStates[realIndex - 1];
+        refreshUI();
+    }
+
+    treeToggle.addEventListener('click', toggleTrees);
+    fullscreenTreeToggle.addEventListener('click', toggleTrees);
+
+
+    function toggleInfoPopup(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        infoPopup.classList.toggle('visible');
+    }
+
+    infoButton.addEventListener('click', toggleInfoPopup);
+
+    document.addEventListener('click', function (e) {
+        if (!e.target.closest('#infoButton') && !e.target.closest('#infoPopup')) {
+            infoPopup.classList.remove('visible');
+        }
+    });
+
+    window.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+            infoPopup.classList.remove('visible');
+        }
+    });
+
+    snapToIndex(1, false);
+})();
+</script>
+
+
+
+</body>
+</html>

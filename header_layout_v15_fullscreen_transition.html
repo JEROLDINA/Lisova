@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Header Layout</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+    html, body {
+        margin: 0;
+        padding: 0;
+        background: #FFFFFF;
+        overflow-x: hidden;
+        overflow-y: auto;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: geometricPrecision;
+    }
+
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+        display: none;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Archivo', sans-serif;
+        font-weight: 400;
+    }
+
+    .page {
+        width: 2560px;
+        height: 6255px;
+        margin: 0 auto;
+        background: #FFFFFF;
+        position: relative;
+    }
+
+    .header {
+        width: 2000px;
+        height: 80px;
+        background: #FFFFFF;
+        position: fixed;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    .logo {
+        width: 60px;
+        height: 60px;
+        margin-left: 10px;
+        object-fit: contain;
+        display: block;
+        flex: 0 0 auto;
+    }
+
+    .nav {
+        margin-left: auto;
+        margin-right: 20px;
+        display: flex;
+        gap: 40px;
+        align-items: center;
+    }
+
+    .nav-item {
+        font-family: 'Archivo', sans-serif;
+        font-size: 20px;
+        line-height: 163.1%;
+        letter-spacing: -0.02em;
+        color: #000000;
+        white-space: nowrap;
+        font-weight: 400;
+    }
+
+    .version-row {
+        width: 2000px;
+        height: 80px;
+        position: absolute;
+        top: 80px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding-right: 20px;
+        background: #FFFFFF;
+    }
+
+    .version-text {
+        font-family: 'Archivo', sans-serif;
+        font-size: 15px;
+        line-height: 163.1%;
+        letter-spacing: -0.02em;
+        white-space: nowrap;
+        font-weight: 400;
+    }
+
+    .muted { color: #BFBFBF; }
+    .dark { color: #000000; }
+
+    .hero {
+        width: 2000px;
+        height: 1000px;
+        position: absolute;
+        top: 160px;
+        left: 50%;
+        transform: translateX(-50%);
+        overflow: hidden;
+    }
+
+    .hero img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(0.9);
+        display: block;
+    }
+
+    .hero-title {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-family: 'Archivo', sans-serif;
+        font-size: 60px;
+        font-weight: 500;
+        line-height: 163.1%;
+        letter-spacing: -0.02em;
+        color: #FFFFFF;
+        white-space: nowrap;
+        text-align: center;
+    }
+
+    .description-box {
+        width: 646px;
+        height: 280px;
+        position: absolute;
+        top: 1160px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background: #FFFFFF;
+    }
+
+    .description-text {
+        width: 560px;
+        font-family: 'Archivo', sans-serif;
+        font-size: 15px;
+        line-height: 163.1%;
+        letter-spacing: -0.02em;
+        color: #000000;
+        font-weight: 400;
+        text-align: center;
+        margin: 0;
+    }
+
+    .carousel-section {
+        position: absolute;
+        top: 1440px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 2000px;
+    }
+
+    .carousel-viewport {
+        width: 2000px;
+        height: 1125px;
+        overflow: hidden;
+        position: relative;
+        cursor: grab;
+        user-select: none;
+        touch-action: auto;
+    }
+
+    .carousel-viewport.dragging {
+        cursor: grabbing;
+    }
+
+    .carousel-track {
+        display: flex;
+        gap: 20px;
+        height: 1125px;
+        will-change: transform;
+        transform: translateX(0px);
+    }
+
+    .slide {
+        width: 2000px;
+        height: 1125px;
+        flex: 0 0 2000px;
+        user-select: none;
+        -webkit-user-drag: none;
+        pointer-events: none;
+    }
+
+    .slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        user-select: none;
+        -webkit-user-drag: none;
+        pointer-events: none;
+    }
+
+    .carousel-dots {
+        width: 2000px;
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 20px;
+    }
+
+    .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #BFBFBF;
+    }
+
+    .dot.active {
+        background: #000000;
+    }
+
+
+    .carousel-viewport {
+        position: relative;
+    }
+
+    .fullscreen-toggle,
+    .fullscreen-close {
+        position: absolute;
+        width: 56px;
+        height: 56px;
+        right: 12px;
+        bottom: 12px;
+        border: none;
+        background: transparent;
+        padding: 0;
+        cursor: pointer;
+        z-index: 20;
+    }
+
+    .fullscreen-toggle img,
+    .fullscreen-close img {
+        width: 56px;
+        height: 56px;
+        display: block;
+        pointer-events: none;
+        user-select: none;
+        -webkit-user-drag: none;
+    }
+
+    .fullscreen-overlay {
+        position: fixed;
+        inset: 0;
+        background: #000000;
+        z-index: 5000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .fullscreen-overlay.active {
+        display: flex;
+    }
+
+    .fullscreen-overlay {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 260ms ease, visibility 260ms ease;
+    }
+
+    .fullscreen-overlay.active {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    .fullscreen-stage,
+    .fullscreen-dots,
+    .fullscreen-close {
+        opacity: 0;
+        transform: translateY(12px);
+        transition: opacity 260ms ease, transform 260ms ease;
+    }
+
+    .fullscreen-overlay.active .fullscreen-stage,
+    .fullscreen-overlay.active .fullscreen-dots,
+    .fullscreen-overlay.active .fullscreen-close {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .fullscreen-stage {
+        transition-delay: 40ms;
+    }
+
+    .fullscreen-dots {
+        transition-delay: 90ms;
+    }
+
+    .fullscreen-close {
+        transition-delay: 90ms;
+    }
+
+    .fullscreen-toggle {
+        transition: opacity 180ms ease, transform 180ms ease;
+    }
+
+    .fullscreen-toggle:hover {
+        opacity: 0.9;
+        transform: scale(1.03);
+    }
+
+
+    .fullscreen-stage {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        cursor: grab;
+        user-select: none;
+    }
+
+    .fullscreen-stage.dragging {
+        cursor: grabbing;
+    }
+
+    .fullscreen-track {
+        display: flex;
+        gap: 20px;
+        height: 100vh;
+        will-change: transform;
+        transform: translateX(0px);
+    }
+
+    .fullscreen-slide {
+        width: 100vw;
+        height: 100vh;
+        flex: 0 0 100vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: none;
+        user-select: none;
+        -webkit-user-drag: none;
+    }
+
+    .fullscreen-slide img {
+        width: 100vw;
+        height: 100vh;
+        object-fit: contain;
+        display: block;
+        pointer-events: none;
+        user-select: none;
+        -webkit-user-drag: none;
+        background: #000000;
+    }
+
+    .fullscreen-close {
+        position: fixed;
+        right: 12px;
+        bottom: 12px;
+        z-index: 5010;
+    }
+
+    .fullscreen-dots {
+        position: fixed;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 20px;
+        display: flex;
+        gap: 12px;
+        z-index: 5008;
+    }
+
+    .fullscreen-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #BFBFBF;
+    }
+
+    .fullscreen-dot.active {
+        background: #FFFFFF;
+    }
+
+</style>
+</head>
+
+<body>
+<div class="page">
+
+    <div class="header">
+        <img src="logo.png" class="logo" alt="Logo">
+        <div class="nav">
+            <div class="nav-item">КАТАЛОГ</div>
+            <div class="nav-item">360 INTERACTIVE</div>
+            <div class="nav-item">КОРЕКТИВИ</div>
+        </div>
+    </div>
+
+    <div class="version-row">
+        <div class="version-text">
+            <span class="muted">Версія проєкту </span>
+            <span class="dark">1.4 </span>
+            <span class="muted">/ </span>
+            <span class="dark">09.10.2025</span>
+        </div>
+    </div>
+
+    <div class="hero">
+        <img src="Titled.jpg" alt="Titled image">
+        <div class="hero-title">COTTAGE LISOVA</div>
+    </div>
+
+    <div class="description-box">
+        <p class="description-text">Сучасна резиденція, інтегрована в сосновий ліс, з підкреслено горизонтальною архітектурою. Візуалізація акцентує взаємодію будівлі з природою через скло, світло та натуральні матеріали.</p>
+    </div>
+
+    <section class="carousel-section">
+        <div class="carousel-viewport" id="carouselViewport">
+            <div class="carousel-track" id="carouselTrack">
+                <div class="slide"><img src="A6.jpg" alt="A6 clone"></div>
+                <div class="slide"><img src="A1.jpg" alt="A1"></div>
+                <div class="slide"><img src="A2.jpg" alt="A2"></div>
+                <div class="slide"><img src="A3.jpg" alt="A3"></div>
+                <div class="slide"><img src="A4.jpg" alt="A4"></div>
+                <div class="slide"><img src="A5.jpg" alt="A5"></div>
+                <div class="slide"><img src="A6.jpg" alt="A6"></div>
+                <div class="slide"><img src="A1.jpg" alt="A1 clone"></div>
+            </div>
+        
+        </div>
+            <button class="fullscreen-toggle" id="fullscreenOpen" aria-label="Open fullscreen">
+                <img src="Icon_Plus.png" alt="Open fullscreen">
+            </button>
+        </div>
+        <div class="carousel-dots" id="carouselDots">
+            <div class="dot active"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </section>
+
+
+</div>
+
+
+
+<script>
+(function () {
+    const realSlides = 6;
+    const gap = 20;
+
+    // Main carousel
+    const viewport = document.getElementById('carouselViewport');
+    const track = document.getElementById('carouselTrack');
+    const dots = document.querySelectorAll('#carouselDots .dot');
+    const fullscreenOpen = document.getElementById('fullscreenOpen');
+
+    let slideWidth = 2000;
+    let step = slideWidth + gap;
+
+    let index = 1;
+    let currentX = -index * step;
+    let dragStartX = 0;
+    let dragStartTranslate = currentX;
+    let isPointerDown = false;
+    let isDragging = false;
+    let isAnimating = false;
+
+    function updateDots() {
+        dots.forEach(d => d.classList.remove('active'));
+        let realIndex = index;
+        if (realIndex === 0) realIndex = realSlides;
+        if (realIndex === realSlides + 1) realIndex = 1;
+        dots[realIndex - 1].classList.add('active');
+        updateFullscreenDots(realIndex);
+    }
+
+    function setTransition(enabled) {
+        track.style.transition = enabled
+            ? 'transform 420ms cubic-bezier(0.22, 0.61, 0.36, 1)'
+            : 'none';
+    }
+
+    function setTranslate(x) {
+        currentX = x;
+        track.style.transform = `translateX(${x}px)`;
+    }
+
+    function snapToIndex(targetIndex, animate = true) {
+        index = targetIndex;
+        isAnimating = animate;
+        setTransition(animate);
+        setTranslate(-index * step);
+        syncFullscreenPosition(animate);
+        updateDots();
+    }
+
+    function goNext() {
+        if (isAnimating) return;
+        snapToIndex(index + 1, true);
+    }
+
+    function goPrev() {
+        if (isAnimating) return;
+        snapToIndex(index - 1, true);
+    }
+
+    track.addEventListener('transitionend', function () {
+        isAnimating = false;
+        if (index === 0) {
+            snapToIndex(realSlides, false);
+        } else if (index === realSlides + 1) {
+            snapToIndex(1, false);
+        }
+    });
+
+    viewport.addEventListener('pointerdown', function (e) {
+        if (e.pointerType !== 'mouse') return;
+        if (e.button !== 0) return;
+        if (isAnimating) return;
+        if (e.target.closest('#fullscreenOpen')) return;
+
+        isPointerDown = true;
+        isDragging = false;
+        dragStartX = e.clientX;
+        dragStartTranslate = currentX;
+
+        viewport.classList.add('dragging');
+        viewport.setPointerCapture(e.pointerId);
+        setTransition(false);
+    });
+
+    viewport.addEventListener('pointermove', function (e) {
+        if (!isPointerDown) return;
+        const dx = e.clientX - dragStartX;
+        if (!isDragging && Math.abs(dx) < 6) return;
+        isDragging = true;
+        setTranslate(dragStartTranslate + dx);
+    });
+
+    function finishDrag(e) {
+        if (!isPointerDown) return;
+
+        const dx = e.clientX - dragStartX;
+        isPointerDown = false;
+        viewport.classList.remove('dragging');
+
+        if (!isDragging) {
+            setTransition(true);
+            setTranslate(-index * step);
+            return;
+        }
+
+        const threshold = step * 0.16;
+        if (dx <= -threshold) {
+            snapToIndex(index + 1, true);
+        } else if (dx >= threshold) {
+            snapToIndex(index - 1, true);
+        } else {
+            snapToIndex(index, true);
+        }
+        isDragging = false;
+    }
+
+    viewport.addEventListener('pointerup', finishDrag);
+    viewport.addEventListener('pointercancel', finishDrag);
+
+    let touchStartX = 0;
+    let touchStartTranslate = currentX;
+    let touchDragging = false;
+
+    viewport.addEventListener('touchstart', function (e) {
+        if (isAnimating) return;
+        touchDragging = true;
+        touchStartX = e.touches[0].clientX;
+        touchStartTranslate = currentX;
+        setTransition(false);
+    }, { passive: true });
+
+    viewport.addEventListener('touchmove', function (e) {
+        if (!touchDragging) return;
+        const dx = e.touches[0].clientX - touchStartX;
+        setTranslate(touchStartTranslate + dx);
+    }, { passive: true });
+
+    viewport.addEventListener('touchend', function (e) {
+        if (!touchDragging) return;
+        touchDragging = false;
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        const threshold = step * 0.16;
+        if (dx <= -threshold) {
+            snapToIndex(index + 1, true);
+        } else if (dx >= threshold) {
+            snapToIndex(index - 1, true);
+        } else {
+            snapToIndex(index, true);
+        }
+    }, { passive: true });
+
+    viewport.addEventListener('dragstart', function (e) { e.preventDefault(); });
+
+    // Fullscreen
+    const fullscreenOverlay = document.getElementById('fullscreenOverlay');
+    const fullscreenStage = document.getElementById('fullscreenStage');
+    const fullscreenTrack = document.getElementById('fullscreenTrack');
+    const fullscreenClose = document.getElementById('fullscreenClose');
+    const fullscreenDots = document.querySelectorAll('#fullscreenDots .fullscreen-dot');
+
+    let fsWidth = window.innerWidth;
+    let fsStep = fsWidth + gap;
+    let fsCurrentX = -index * fsStep;
+    let fsPointerDown = false;
+    let fsDragging = false;
+    let fsStartX = 0;
+    let fsStartTranslate = fsCurrentX;
+    let fsAnimating = false;
+    let suppressSync = false;
+
+    function updateFullscreenMetrics() {
+        fsWidth = window.innerWidth;
+        fsStep = fsWidth + gap;
+    }
+
+    function updateFullscreenDots(realIndex) {
+        fullscreenDots.forEach(d => d.classList.remove('active'));
+        fullscreenDots[realIndex - 1].classList.add('active');
+    }
+
+    function setFullscreenTransition(enabled) {
+        fullscreenTrack.style.transition = enabled
+            ? 'transform 420ms cubic-bezier(0.22, 0.61, 0.36, 1)'
+            : 'none';
+    }
+
+    function setFullscreenTranslate(x) {
+        fsCurrentX = x;
+        fullscreenTrack.style.transform = `translateX(${x}px)`;
+    }
+
+    function syncFullscreenPosition(animate) {
+        updateFullscreenMetrics();
+        fsAnimating = animate && fullscreenOverlay.classList.contains('active');
+        setFullscreenTransition(animate);
+        setFullscreenTranslate(-index * fsStep);
+    }
+
+    function snapFullscreenToIndex(targetIndex, animate = true) {
+        index = targetIndex;
+        fsAnimating = animate;
+        setFullscreenTransition(animate);
+        setFullscreenTranslate(-index * fsStep);
+
+        suppressSync = true;
+        isAnimating = animate;
+        setTransition(animate);
+        setTranslate(-index * step);
+        updateDots();
+        suppressSync = false;
+    }
+
+    fullscreenTrack.addEventListener('transitionend', function () {
+        fsAnimating = false;
+        isAnimating = false;
+        if (index === 0) {
+            snapFullscreenToIndex(realSlides, false);
+        } else if (index === realSlides + 1) {
+            snapFullscreenToIndex(1, false);
+        }
+    });
+
+    function openFullscreen() {
+        syncFullscreenPosition(false);
+        updateDots();
+        fullscreenOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeFullscreen() {
+        fullscreenOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+        snapToIndex(index, false);
+    }
+
+    fullscreenOpen.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        openFullscreen();
+    });
+
+    fullscreenClose.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        closeFullscreen();
+    });
+
+    fullscreenOverlay.addEventListener('click', function (e) {
+        if (e.target === fullscreenOverlay) closeFullscreen();
+    });
+
+    fullscreenStage.addEventListener('pointerdown', function (e) {
+        if (e.pointerType !== 'mouse') return;
+        if (e.button !== 0) return;
+        if (fsAnimating) return;
+        if (e.target.closest('#fullscreenClose')) return;
+
+        fsPointerDown = true;
+        fsDragging = false;
+        fsStartX = e.clientX;
+        fsStartTranslate = fsCurrentX;
+        fullscreenStage.classList.add('dragging');
+        fullscreenStage.setPointerCapture(e.pointerId);
+        setFullscreenTransition(false);
+    });
+
+    fullscreenStage.addEventListener('pointermove', function (e) {
+        if (!fsPointerDown) return;
+        const dx = e.clientX - fsStartX;
+        if (!fsDragging && Math.abs(dx) < 6) return;
+        fsDragging = true;
+        setFullscreenTranslate(fsStartTranslate + dx);
+    });
+
+    function finishFsDrag(e) {
+        if (!fsPointerDown) return;
+        const dx = e.clientX - fsStartX;
+        fsPointerDown = false;
+        fullscreenStage.classList.remove('dragging');
+
+        if (!fsDragging) {
+            setFullscreenTransition(true);
+            setFullscreenTranslate(-index * fsStep);
+            return;
+        }
+
+        const threshold = fsStep * 0.16;
+        if (dx <= -threshold) {
+            snapFullscreenToIndex(index + 1, true);
+        } else if (dx >= threshold) {
+            snapFullscreenToIndex(index - 1, true);
+        } else {
+            snapFullscreenToIndex(index, true);
+        }
+        fsDragging = false;
+    }
+
+    fullscreenStage.addEventListener('pointerup', finishFsDrag);
+    fullscreenStage.addEventListener('pointercancel', finishFsDrag);
+
+    let fsTouchStartX = 0;
+    let fsTouchStartTranslate = fsCurrentX;
+    let fsTouchDragging = false;
+
+    fullscreenStage.addEventListener('touchstart', function (e) {
+        if (fsAnimating) return;
+        fsTouchDragging = true;
+        fsTouchStartX = e.touches[0].clientX;
+        fsTouchStartTranslate = fsCurrentX;
+        setFullscreenTransition(false);
+    }, { passive: true });
+
+    fullscreenStage.addEventListener('touchmove', function (e) {
+        if (!fsTouchDragging) return;
+        const dx = e.touches[0].clientX - fsTouchStartX;
+        setFullscreenTranslate(fsTouchStartTranslate + dx);
+    }, { passive: true });
+
+    fullscreenStage.addEventListener('touchend', function (e) {
+        if (!fsTouchDragging) return;
+        fsTouchDragging = false;
+        const dx = e.changedTouches[0].clientX - fsTouchStartX;
+        const threshold = fsStep * 0.16;
+        if (dx <= -threshold) {
+            snapFullscreenToIndex(index + 1, true);
+        } else if (dx >= threshold) {
+            snapFullscreenToIndex(index - 1, true);
+        } else {
+            snapFullscreenToIndex(index, true);
+        }
+    }, { passive: true });
+
+    window.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && fullscreenOverlay.classList.contains('active')) {
+            e.preventDefault();
+            closeFullscreen();
+            return;
+        }
+
+        if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            if (fullscreenOverlay.classList.contains('active')) {
+                if (!fsAnimating) snapFullscreenToIndex(index - 1, true);
+            } else {
+                goPrev();
+            }
+        } else if (e.key === 'ArrowRight') {
+            e.preventDefault();
+            if (fullscreenOverlay.classList.contains('active')) {
+                if (!fsAnimating) snapFullscreenToIndex(index + 1, true);
+            } else {
+                goNext();
+            }
+        }
+    });
+
+    window.addEventListener('resize', function () {
+        updateFullscreenMetrics();
+        syncFullscreenPosition(false);
+        snapToIndex(index, false);
+    });
+
+    snapToIndex(1, false);
+})();
+</script>
+
+
+
+<div class="fullscreen-overlay" id="fullscreenOverlay">
+    <div class="fullscreen-stage" id="fullscreenStage">
+        <div class="fullscreen-track" id="fullscreenTrack">
+            <div class="fullscreen-slide"><img src="A6.jpg" alt="A6 clone"></div>
+            <div class="fullscreen-slide"><img src="A1.jpg" alt="A1"></div>
+            <div class="fullscreen-slide"><img src="A2.jpg" alt="A2"></div>
+            <div class="fullscreen-slide"><img src="A3.jpg" alt="A3"></div>
+            <div class="fullscreen-slide"><img src="A4.jpg" alt="A4"></div>
+            <div class="fullscreen-slide"><img src="A5.jpg" alt="A5"></div>
+            <div class="fullscreen-slide"><img src="A6.jpg" alt="A6"></div>
+            <div class="fullscreen-slide"><img src="A1.jpg" alt="A1 clone"></div>
+        </div>
+    </div>
+
+    <div class="fullscreen-dots" id="fullscreenDots">
+        <div class="fullscreen-dot active"></div>
+        <div class="fullscreen-dot"></div>
+        <div class="fullscreen-dot"></div>
+        <div class="fullscreen-dot"></div>
+        <div class="fullscreen-dot"></div>
+        <div class="fullscreen-dot"></div>
+    </div>
+
+    <button class="fullscreen-close" id="fullscreenClose" aria-label="Close fullscreen">
+        <img src="Icon_Minus.png" alt="Close fullscreen">
+    </button>
+</div>
+
+</body>
+</html>
